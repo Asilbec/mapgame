@@ -1,39 +1,47 @@
 .App {
-  width: 100vw;
+  width: 100%;
   height: fit-content;
   min-height: 100vh;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.loadingStuff {
+  width: 100%;
+  height: 100%;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 80% auto;
+}
+
+.game {
+  width: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 50vw 50vw;
 }
 
-.container {
+.infoContainer {
+  width: 100%;
+  height: 100%;
   background-color: rgb(255, 255, 255);
-  width: 100%;
-  height: 100vh;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
 }
 
-.nice {
-  width: 100%;
-  height: 100%;
-}
-
-#button {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 80% auto;
-  width: 100%;
-}
-
-.submit {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  text-align: center;
-  grid-template-columns: auto auto;
-}
-
-.submit button {
-  margin: auto;
+#submit {
   width: 100px;
-  height: 50px;
+  height: 100px;
+}
+
+h1 {
+  font-size: 10px;
 }
