@@ -33,15 +33,25 @@
   height: 100%;
   background-color: rgb(255, 255, 255);
   display: flex;
-  flex-flow: row;
-  justify-content: space-around;
 }
 
 #submit {
   width: 100px;
-  height: 100px;
+  height: 60px;
+  margin: auto;
 }
 
-h1 {
-  font-size: 10px;
+.textinfo {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+}
+
+#differnce {
+  font-size: 25px;
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
 }

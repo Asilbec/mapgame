@@ -24,7 +24,8 @@ function Map() {
         document.getElementById('lat').innerHTML = event.latLng.lat()
         document.getElementById('lng').innerHTML = event.latLng.lng()
         newMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() })
-      }}><Marker position={marker} /></GoogleMap>);
+      }}><Marker position={marker} />
+    </GoogleMap>);
 }
 function streetview(props) {
   const mapOptions = {
@@ -128,12 +129,15 @@ function App() {
           </div>
           <div className='infoContainer'>
             <button onClick={() => newArea()} id='submit'></button>
-            <h1 id='lat'>?</h1>
-            <h1 id='lng'>?</h1>
+            <div className='textinfo'>
+
+              <p id='differnce'>the difference is : </p>
+            </div>
+            <div className='hidden'>
+              <h1 id='lat'>?</h1>
+              <h1 id='lng'>?</h1>
+            </div>
           </div>
-          <p id='differnce'>the difference is : </p>
-
-
         </div>
       </div>
 
