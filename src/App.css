@@ -2,6 +2,7 @@
   width: 100%;
   height: fit-content;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .map {
@@ -77,6 +78,7 @@ h1 {
   width: 100%;
   height: 100vh;
   display: none;
+  grid-template-columns: auto;
 }
 
 #infoshown {
@@ -95,15 +97,19 @@ h1 {
 }
 
 .roundcounter {
-  width: 100px;
-  height: 50px;
+  width: fit-content;
+  height: fit-content;
   background-color: rgb(255, 255, 255);
   position: absolute;
   top: 5px;
   right: 5px;
   z-index: 10000;
   border-bottom-left-radius: 20px;
-  text-align: center;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  padding: 10px;
 }
 
 #menu {
@@ -129,4 +135,99 @@ h1 {
   background-color: white;
   color: black;
   transition: 0.3s ease-in;
+}
+
+#resultsPage {
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+.totalScore {
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  margin: auto;
+  font-size: 20px;
+  margin-top: 100px;
+  margin-bottom: 0;
+}
+
+.bar {
+  width: 90vw;
+  max-width: 800px;
+  height: 30px;
+  background-color: black;
+  margin: auto;
+  margin-top: 0px;
+  border-radius: 10px;
+}
+
+.outerline {
+  width: 0%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#loadinggif {
+  width: 0%;
+  height: 70%;
+  background-color: rgb(51, 255, 0);
+  animation: loading 4s;
+  animation-fill-mode: forwards;
+  border-radius: 10px;
+  margin: auto;
+  margin-left: 0;
+}
+
+#total {
+  animation-name: wobble;
+  animation-duration: 2s;
+}
+
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 99%;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0%);
+  }
+  15% {
+    transform: translateX(-25%) rotate(-5deg);
+  }
+  30% {
+    transform: translateX(20%) rotate(3deg);
+  }
+  45% {
+    transform: translateX(-15%) rotate(-3deg);
+  }
+  60% {
+    transform: translateX(10%) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-5%) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+#percentage {
+  margin: auto;
+  margin-top: 0px;
+  height: 10px;
+}
+
+h1 {
+  margin: 0;
 }

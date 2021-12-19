@@ -63,25 +63,23 @@ function Map(props) {
 }
 function streetview(props) {
   const mapOptions = {
-    disableDefaultUI: true,
     enableCloseButton: false,
     showRoadLabels: false,
-    motionTracking: false
+    motionTracking: false,
+    panControl: true,
+    linksControl: true
   };
 
   return (
     <GoogleMap
-      defaultCenter={{ lat: 40.403154441461346, lng: -80.06076967448335 }}
+      defaultCenter={{ lat: -8.77790, lng: 5.94421 }}
     >
       <StreetViewPanorama
         position={{ lat: props.lat, lng: props.lng }}
         enableCloseButton={false}
-        linksControl={false}
         addressControl={true}
         visible={true}
         onLoad={(e) => { }}
-        motionTracking={true}
-        motionTrackingControl={true}
         options={mapOptions
         }
       />
@@ -93,13 +91,16 @@ const StreetView = withScriptjs(withGoogleMap(streetview));
 
 
 
-function App() {
 
+
+
+function App() {
   const [round, newRound] = useState(0)
+  const [roundpoints, addtopoints] = useState(0)
   const [markerState, newMarkerState] = useState(false)
   const [markerStatus, newmarkerStatus] = useState(true)
   const [points, newPoints] = useState({
-    lat: 40.403154441461346, lng: -80.06076967448335
+    lat: -8.77790, lng: 5.94421
   })
 
   function newArea() {
@@ -107,7 +108,6 @@ function App() {
     const lng1 = document.getElementById('lng').innerHTML
     const lat2 = points.lat
     const lng2 = points.lng
-    console.log("difference is " + calcCrow(lat1, lng1, lat2, lng2))
     document.getElementById('nice').style.width = '100vw'
     document.getElementById('nice').style.height = '100vh'
     document.getElementById('nice').style.padding = '0px'
@@ -115,6 +115,9 @@ function App() {
     document.getElementById('infoshown').style.display = 'flex'
     newMarkerState(true)
     document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)
+    document.getElementById('currentRoundScore').innerText = 'Total points ' + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)) + '/10,000'
+    addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
+
     newmarkerStatus(false)
     setTimeout(() => {
       document.getElementById('nice').style.width = '20vw'
@@ -124,8 +127,14 @@ function App() {
       document.getElementById('nice').style.padding = '2px'
       newmarkerStatus(true)
       newMarkerState(false)
-      newview()
-    }, 10000);
+      if (round > 1) {
+        finishgame()
+      }
+      else {
+        newview()
+
+      }
+    }, 5000);
   }
 
 
@@ -143,13 +152,36 @@ function App() {
     }
   }
 
+  function distancetoScore(distance) {
+    if (distance > 10000) {
+      return 0
+    }
+    else {
+      return 10000 - distance
+    }
+  }
+
+
   function beginGame() {
+    newRound(0)
+    addtopoints(0)
     newview()
     setTimeout(() => {
       document.getElementById('games').style.display = 'flex'
       document.getElementById('menu').style.display = 'none'
+      document.getElementById('resultsPage').style.display = 'none'
+
     }, 1000);
   }
+
+  function returntoScreen() {
+    document.getElementById('games').style.display = 'none'
+    document.getElementById('menu').style.display = 'flex'
+    document.getElementById('resultsPage').style.display = 'none'
+    newRound(0)
+    addtopoints(0)
+  }
+
 
   function calcCrow(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
@@ -174,6 +206,13 @@ function App() {
       newRound(round + 1)
     })
   }
+
+  function finishgame() {
+    document.getElementById("games").style.display = 'none'
+    document.getElementById("resultsPage").style.display = 'grid'
+  }
+
+
   // Converts numeric degrees to radians
   function toRad(Value) {
     return Value * Math.PI / 180;
@@ -181,7 +220,10 @@ function App() {
   return (
     <div className='App'>
       <div className='game' id='games'>
-        <div className='roundcounter'>Round : {round}</div>
+        <div className='roundcounter'>
+          <p>Round : {round}</p>
+          <p>score : {roundpoints.toFixed(2)}</p>
+        </div>
         <div className='mapFunction'>
           <div className="map">
             <StreetView
@@ -213,11 +255,26 @@ function App() {
           </div>
           <div id='infoshown'>
             <h1 id='totalDifference'>Total difference : </h1>
+            <h1 id='currentRoundScore'>Points Given : </h1>
+
           </div>
         </div>
       </div>
       <div id='menu'>
         <button id='begin' onClick={() => beginGame()}>Start</button>
+      </div>
+      <div id='resultsPage'>
+        <div className='totalScore'>
+          <h1 id='total'>{roundpoints.toFixed(2)}/{round * 10000}</h1>
+        </div>
+        <h1 id='percentage'>{(roundpoints / (round * 10000) * 100).toFixed(1)}%</h1>
+        <div className='bar'>
+          <div className='outerline' style={{ width: (roundpoints / (round * 10000) * 100) + '%' }}>
+            <div id='loadinggif'></div>
+          </div>
+        </div>
+        <button id='news' onClick={() => returntoScreen()}>Start</button>
+
       </div>
     </div>
   );
