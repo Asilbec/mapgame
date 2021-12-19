@@ -70,7 +70,7 @@ h1 {
 }
 
 .game {
-  display: flex;
+  display: none;
 }
 
 .resultsPage {
@@ -81,12 +81,13 @@ h1 {
 
 #infoshown {
   width: 100%;
-  height: 300px;
+  height: 30vh;
   background-color: rgb(218, 214, 214);
   position: absolute;
   bottom: 0;
   display: none;
   border-radius: 10px;
+  font-size: 1rem;
 }
 
 #infoshown h1 {
@@ -96,7 +97,6 @@ h1 {
 .roundcounter {
   width: 100px;
   height: 50px;
-  font-size: 20px;
   background-color: rgb(255, 255, 255);
   position: absolute;
   top: 5px;
@@ -104,4 +104,29 @@ h1 {
   z-index: 10000;
   border-bottom-left-radius: 20px;
   text-align: center;
+}
+
+#menu {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+#begin {
+  width: 250px;
+  height: 100px;
+  margin: auto;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-size: xx-large;
+  border: 1px solid white;
+  border-radius: 10px;
+  transition: 0.3s ease-in;
+}
+
+#begin:hover {
+  border: 3px solid black;
+  background-color: white;
+  color: black;
+  transition: 0.3s ease-in;
 }

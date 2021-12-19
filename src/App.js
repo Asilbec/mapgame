@@ -1,6 +1,6 @@
 import './App.css';
 import randomStreetView from 'random-streetview';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   withGoogleMap,
   withScriptjs,
@@ -143,6 +143,13 @@ function App() {
     }
   }
 
+  function beginGame() {
+    newview()
+    setTimeout(() => {
+      document.getElementById('games').style.display = 'flex'
+      document.getElementById('menu').style.display = 'none'
+    }, 1000);
+  }
 
   function calcCrow(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
@@ -171,10 +178,6 @@ function App() {
   function toRad(Value) {
     return Value * Math.PI / 180;
   }
-
-  useEffect(() => {
-    newview()
-  }, []);
   return (
     <div className='App'>
       <div className='game' id='games'>
@@ -212,6 +215,9 @@ function App() {
             <h1 id='totalDifference'>Total difference : </h1>
           </div>
         </div>
+      </div>
+      <div id='menu'>
+        <button id='begin' onClick={() => beginGame()}>Start</button>
       </div>
     </div>
   );
