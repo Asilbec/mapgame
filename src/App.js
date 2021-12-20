@@ -112,29 +112,13 @@ function App() {
     document.getElementById('nice').style.height = '100vh'
     document.getElementById('nice').style.padding = '0px'
     document.getElementById('submitButton').style.display = 'none'
-    document.getElementById('infoshown').style.display = 'flex'
+    document.getElementById('infoshown').style.display = 'grid'
     newMarkerState(true)
-    document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)
-    document.getElementById('currentRoundScore').innerText = 'Total points ' + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)) + '/10,000'
+    document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2) + ' km'
+    document.getElementById('currentRoundScore').innerText = 'Total points ' + (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(2) + '/10,000'
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
 
     newmarkerStatus(false)
-    setTimeout(() => {
-      document.getElementById('nice').style.width = '20vw'
-      document.getElementById('nice').style.height = '20vw'
-      document.getElementById('submitButton').style.display = 'inline'
-      document.getElementById('infoshown').style.display = 'none'
-      document.getElementById('nice').style.padding = '2px'
-      newmarkerStatus(true)
-      newMarkerState(false)
-      if (round > 1) {
-        finishgame()
-      }
-      else {
-        newview()
-
-      }
-    }, 5000);
   }
 
 
@@ -194,6 +178,23 @@ function App() {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
     return d;
+  }
+
+  function killtimer() {
+    document.getElementById('nice').style.width = '20vw'
+    document.getElementById('nice').style.height = '20vw'
+    document.getElementById('submitButton').style.display = 'inline'
+    document.getElementById('infoshown').style.display = 'none'
+    document.getElementById('nice').style.padding = '2px'
+    newmarkerStatus(true)
+    newMarkerState(false)
+    if (round > 1) {
+      finishgame()
+    }
+    else {
+      newview()
+
+    }
   }
 
 
@@ -256,6 +257,7 @@ function App() {
           <div id='infoshown'>
             <h1 id='totalDifference'>Total difference : </h1>
             <h1 id='currentRoundScore'>Points Given : </h1>
+            <button id='nextbutton' onClick={() => killtimer()}>Next</button>
 
           </div>
         </div>
@@ -273,7 +275,7 @@ function App() {
             <div id='loadinggif'></div>
           </div>
         </div>
-        <button id='news' onClick={() => returntoScreen()}>Start</button>
+        <button id='news' onClick={() => returntoScreen()}>Start over</button>
 
       </div>
     </div>
