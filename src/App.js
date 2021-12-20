@@ -188,7 +188,7 @@ function App() {
     document.getElementById('nice').style.padding = '2px'
     newmarkerStatus(true)
     newMarkerState(false)
-    if (round > 1) {
+    if (round > 4) {
       finishgame()
     }
     else {
