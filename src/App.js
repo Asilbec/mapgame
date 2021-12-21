@@ -16,7 +16,9 @@ function Map(props) {
     minZoom: 2,
     maxZoom: 18,
     streetViewControl: false,
-    fullscreenControl: false
+    fullscreenControl: false,
+    gestureHandling: 'greedy',
+    draggableCursor: ("https://cdn-60c35131c1ac185aa47dd21e.closte.com//wp-content/uploads/2020/04/mouse-cursor.png")
   }
   const path = [
     { lat: props.lat, lng: props.lng },
@@ -117,8 +119,8 @@ function App() {
     document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2) + ' km'
     document.getElementById('currentRoundScore').innerText = 'Total points ' + (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(2) + '/10,000'
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
-
     newmarkerStatus(false)
+    setTimeout(() => 500);
   }
 
 
@@ -226,7 +228,7 @@ function App() {
           <p>score : {roundpoints.toFixed(2)}</p>
         </div>
         <div className='mapFunction'>
-          <div className="map">
+          <div id='refresher' className="map">
             <StreetView
               lat={points.lat}
               lng={points.lng}
@@ -263,7 +265,7 @@ function App() {
         </div>
       </div>
       <div id='menu'>
-        <button id='begin' onClick={() => beginGame()}>Start</button>
+        <button id='begin' className='text-white' onClick={() => beginGame()}>Start</button>
       </div>
       <div id='resultsPage'>
         <div className='totalScore'>
