@@ -106,6 +106,7 @@ const StreetView = withScriptjs(withGoogleMap(streetview));
 
 
 function App() {
+  const [shown, notShown] = useState(false)
   const [round, newRound] = useState(0)
   const [roundpoints, addtopoints] = useState(0)
   const [markerState, newMarkerState] = useState(false)
@@ -113,6 +114,21 @@ function App() {
   const [points, newPoints] = useState({
     lat: -8.77790, lng: 5.94421
   })
+
+  function enlarge() {
+    if (shown === true) {
+      document.getElementById('nice').style.width = '20vw'
+      document.getElementById('nice').style.height = '20vw'
+      notShown(false)
+    }
+    else {
+      document.getElementById('nice').style.width = '100vw'
+      document.getElementById('nice').style.height = '70vh'
+      notShown(true)
+
+    }
+  }
+
 
   function newArea() {
     document.getElementById('loading-break').style.display = 'none'
@@ -307,6 +323,7 @@ function App() {
             <h1 id='lat'>?</h1>
             <h1 id='lng'>?</h1>
             <button onClick={() => newArea()} id='submitButton'>Submit</button>
+            <button onClick={() => enlarge()} id='largebutton'>Extend</button>
           </div>
           <div id='infoshown'>
             <h1 id='totalDifference'>Total difference : </h1>
