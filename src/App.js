@@ -10,6 +10,13 @@ import {
   Polyline,
 } from "react-google-maps";
 
+import ping from './pictures/pushpin-png-13.png'
+import ping2 from './pictures/target.png'
+import targetcursor from './pictures/cursortarget.png'
+import gif from './pictures/tumblr_335c00f00577e421ec9216a31ce2bcde_d2833a17_1280.gif'
+
+
+
 function Map(props) {
   const [marker, newMarker] = useState({ lat: 0, lng: 0 })
   const OPTIONS = {
@@ -18,7 +25,9 @@ function Map(props) {
     streetViewControl: false,
     fullscreenControl: false,
     gestureHandling: 'greedy',
-    draggableCursor: ("https://cdn-60c35131c1ac185aa47dd21e.closte.com//wp-content/uploads/2020/04/mouse-cursor.png")
+    draggableCursor: targetcursor,
+    draggingCursor: targetcursor,
+    defaultCursor: targetcursor
   }
   const path = [
     { lat: props.lat, lng: props.lng },
@@ -32,17 +41,17 @@ function Map(props) {
     strokeWeight: 2,
   }
   let iconMarker = new window.google.maps.MarkerImage(
-    "https://www.freeiconspng.com/uploads/pushpin-png-13.png",
+    ping,
     null, /* size is determined at runtime */
     null, /* origin is 0,0 */
     null, /* anchor is bottom center of the scaled image */
     new window.google.maps.Size(32, 32)
   );
   let iconMarker2 = new window.google.maps.MarkerImage(
-    "https://www.freepnglogos.com/uploads/target-png/target-logo-png-transparent-svg-vector-bie-supply-35.png",
+    ping2,
     null, /* size is determined at runtime */
     null, /* origin is 0,0 */
-    null, /* anchor is bottom center of the scaled image */
+    new window.google.maps.Point(16, 16), /* anchor is bottom center of the scaled image */
     new window.google.maps.Size(32, 32)
   );
   return (
@@ -117,17 +126,18 @@ function App() {
     document.getElementById('infoshown').style.display = 'grid'
     newMarkerState(true)
     document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2) + ' km'
-    document.getElementById('currentRoundScore').innerText = 'Total points ' + (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(2) + '/10,000'
+    document.getElementById('currentRoundScore').innerText = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) + '/10,000'
+    document.getElementById('realscorebar').style.width = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) / 100 + '%'
+
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
     newmarkerStatus(false)
-    setTimeout(() => 500);
   }
 
 
   function changeWidth() {
     if (markerState === false) {
-      document.getElementById('nice').style.width = '30vw'
-      document.getElementById('nice').style.height = '30vw'
+      document.getElementById('nice').style.width = '40vw'
+      document.getElementById('nice').style.height = '40vw'
     }
   }
 
@@ -183,24 +193,48 @@ function App() {
   }
 
   function killtimer() {
-    document.getElementById('nice').style.width = '20vw'
-    document.getElementById('nice').style.height = '20vw'
-    document.getElementById('submitButton').style.display = 'inline'
-    document.getElementById('infoshown').style.display = 'none'
-    document.getElementById('nice').style.padding = '2px'
-    newmarkerStatus(true)
-    newMarkerState(false)
-    if (round > 4) {
-      finishgame()
+    document.getElementById('loading-break').style.display = 'flex'
+    setTimeout(() => {
+      document.getElementById('nice').style.width = '20vw'
+      document.getElementById('nice').style.height = '20vw'
+      document.getElementById('submitButton').style.display = 'inline'
+      document.getElementById('infoshown').style.display = 'none'
+      document.getElementById('nice').style.padding = '0px'
+      newmarkerStatus(true)
+      newMarkerState(false)
+
+      if (round > 4) {
+        finishgame()
+        setTimeout(() => {
+          document.getElementById('loading-break').style.display = 'none'
+
+        }, 2000)
+      }
+      else {
+        newview()
+        setTimeout(() => {
+          document.getElementById('loading-break').style.display = 'none'
+
+        }, 2000)
+      }
+    }, 10);
+  }
+
+  function showDirections() {
+    const state = document.getElementById('playintro').style.display
+
+    if (state === 'block') {
+      document.getElementById('playintro').style.display = 'none'
+      document.getElementById('playintro').style.transition = '1s ease-in'
+
     }
     else {
-      newview()
-
+      document.getElementById('playintro').style.display = 'block'
     }
   }
 
-
   function newview() {
+
     randomStreetView.getRandomLocations(1).then(function (response) {
       newPoints({
         lat: response[0][0],
@@ -212,7 +246,7 @@ function App() {
 
   function finishgame() {
     document.getElementById("games").style.display = 'none'
-    document.getElementById("resultsPage").style.display = 'grid'
+    document.getElementById("resultsPage").style.display = 'flex'
   }
 
 
@@ -224,7 +258,7 @@ function App() {
     <div className='App'>
       <div className='game' id='games'>
         <div className='roundcounter'>
-          <p>Round : {round}</p>
+          <p>Round : {round}/5</p>
           <p>score : {roundpoints.toFixed(2)}</p>
         </div>
         <div className='mapFunction'>
@@ -258,27 +292,72 @@ function App() {
           </div>
           <div id='infoshown'>
             <h1 id='totalDifference'>Total difference : </h1>
-            <h1 id='currentRoundScore'>Points Given : </h1>
+            <div className='scorebar'>
+              <div id='realscorebar'>
+                <div id='loadingscorebar'>
+                  <h1 id='currentRoundScore'>Points Given : </h1>
+                </div>
+              </div>
+            </div>
             <button id='nextbutton' onClick={() => killtimer()}>Next</button>
 
           </div>
         </div>
       </div>
       <div id='menu'>
-        <button id='begin' className='text-white' onClick={() => beginGame()}>Start</button>
-      </div>
-      <div id='resultsPage'>
-        <div className='totalScore'>
-          <h1 id='total'>{roundpoints.toFixed(2)}/{round * 10000}</h1>
-        </div>
-        <h1 id='percentage'>{(roundpoints / (round * 10000) * 100).toFixed(1)}%</h1>
-        <div className='bar'>
-          <div className='outerline' style={{ width: (roundpoints / (round * 10000) * 100) + '%' }}>
-            <div id='loadinggif'></div>
+        <div className='menucontent'>
+          <button id='begin' className='text-white' onClick={() => beginGame()}>Start</button>
+
+          <div className='howtoplay'>
+            <button id='howotoplay' onClick={() => showDirections()}>Directions</button>
+            <p id='playintro'>
+              <ul>
+                <li>
+                  Click Start
+                </li>
+                <li>
+                  Get randomly placed anywhere in the world
+                </li>
+                <li>
+                  Use the map in the corner to place a ping into where you think you are
+                </li>
+                <li>
+                  Try to get close as possible
+                </li>
+                <li>
+                  Points are rewarded based on a 10,000 km radius
+                </li>
+                <li>
+                  Upcoming changes: (hint system) - credit to Ethan Snyder
+                </li>
+              </ul>
+            </p>
           </div>
         </div>
-        <button id='news' onClick={() => returntoScreen()}>Start over</button>
+      </div>
+      <div id='resultsPage'>
+        <div className='resultsPageCont'>
+          <div className='resultsPageContOne'>
+            <h1 id='total'>{roundpoints.toFixed(2)}/{round * 10000}</h1>
 
+            <div className='bar'>
+              <div className='outerline' style={{ width: (roundpoints / (round * 10000) * 100) + '%' }}>
+                <div id='loadinggif'>
+                  <h1 id='percentage'>{(roundpoints / (round * 10000) * 100).toFixed(1)}%</h1>
+
+                </div>
+
+              </div>
+
+            </div>
+            <button id='news' onClick={() => returntoScreen()}>Start over</button>
+          </div>
+        </div>
+
+
+      </div>
+      <div id='loading-break'>
+        <img id='breakimagg' alt='none' src={gif}></img>
       </div>
     </div>
   );

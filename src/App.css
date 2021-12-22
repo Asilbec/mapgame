@@ -46,7 +46,7 @@ html {
   display: grid;
   grid-template-rows: 100%;
   transition: 0.2s ease-in;
-  padding: 2px;
+  padding: 0px;
   min-width: 200px;
   min-height: 200px;
 }
@@ -63,9 +63,10 @@ h1 {
   height: 100%;
   width: 100%;
   margin: auto;
-  font-size: 1px;
+  font-size: 0px;
   visibility: hidden;
   margin: auto;
+  margin-top: 0;
 }
 
 #submitButton {
@@ -75,22 +76,16 @@ h1 {
   visibility: visible;
   background-color: rgb(0, 0, 0);
   border: none;
-  border-radius: 10px;
+  border-radius: 0px;
   color: white;
   font-size: 30px;
   display: inline;
   font-family: "Bebas Neue", cursive;
+  margin-top: 0;
 }
 
 .game {
   display: none;
-}
-
-.resultsPage {
-  width: 100%;
-  height: 100vh;
-  display: none;
-  grid-template-columns: auto;
 }
 
 #infoshown {
@@ -147,42 +142,108 @@ h1 {
 }
 
 .roundcounter :nth-child(1) {
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 5px;
 }
 
 #menu {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  background-image: url("./pictures/andreas-gucklhorn-mawU2PoJWfU-unsplash.jpg");
+  display: none;
+  background-image: url("./pictures/34-343222_4k-wallpaper-reddit-best-cool-wallpaper-hd-download.jpg");
   background-size: cover;
   background-position: center;
 }
 
-#begin {
-  width: 250px;
-  height: 100px;
+.menucontent {
+  width: 400px;
+  height: fit-content;
+  max-width: 95vw;
+  background: rgb(255, 255, 255);
   margin: auto;
-  background-color: rgba(255, 255, 255, 0);
-  color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow-y: auto;
+  padding-top: 20px;
+  filter: drop-shadow(5px 5px 3px #55555a);
+}
+
+.howtoplay {
+  width: 95%;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: "Bebas Neue", cursive;
+}
+
+#howotoplay {
+  width: 150px;
+  height: 50px;
+  border-radius: 40px;
+  border: none;
+  margin: auto;
+  margin-top: 30px;
+  overflow: hidden;
+  filter: drop-shadow(5px 5px 1px #55555a);
+  font-family: "Bebas Neue", cursive;
+  font-size: 20px;
+  background: yellow;
+}
+
+#howotoplay:hover {
+  width: 155px;
+  height: 55px;
+  filter: drop-shadow(5px 5px 3px #55555a);
+}
+
+#playintro {
+  width: 95%;
+  height: fit-content;
+  text-align: left;
+  margin: auto;
+  font-family: "Bebas Neue", cursive;
+  display: none;
+  transition: 1s ease-in;
+  margin-top: 0;
+}
+
+#begin {
+  width: 230px;
+  height: 90px;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-size: xx-large;
-  border: 5px solid white;
+  border: none;
   transition: 0.3s ease-in;
   font-family: "Bebas Neue", cursive;
-  font-size: 60px;
+  font-size: 40px;
+  border-radius: 10px;
+  filter: drop-shadow(5px 5px 3px #55555a);
+  border: 2px solid black;
 }
 
 #begin:hover {
-  border: 5px solid black;
-  background-color: white;
-  color: black;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: rgb(3, 221, 21);
+  color: rgb(255, 255, 255);
   transition: 0.3s ease-in;
+}
+
+#percentage {
+  margin: auto;
+  font-family: "Bebas Neue", cursive;
+  font-size: 20px;
 }
 
 #resultsPage {
   width: 100%;
   height: 100vh;
-  display: none;
+  display: flex;
+  background-color: black;
+  background-image: url("./pictures/34-343222_4k-wallpaper-reddit-best-cool-wallpaper-hd-download.jpg");
+  background-size: cover;
 }
 
 .totalScore {
@@ -196,13 +257,14 @@ h1 {
 }
 
 .bar {
-  width: 90vw;
+  width: 90%;
   max-width: 800px;
   height: 30px;
-  background-color: black;
+  background-color: rgb(255, 0, 0);
   margin: auto;
   margin-top: 0px;
   border-radius: 10px;
+  filter: drop-shadow(5px 5px 3px #55555a);
 }
 
 .outerline {
@@ -210,34 +272,27 @@ h1 {
   height: 100%;
   border-radius: 10px;
   display: flex;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 #loadinggif {
   width: 0%;
-  height: 70%;
-  background-color: rgb(51, 255, 0);
+  height: 100%;
+  background-color: rgb(81, 255, 0);
   animation: loading 4s;
   animation-fill-mode: forwards;
   border-radius: 10px;
   margin: auto;
   margin-left: 0;
+  display: flex;
 }
 
 #total {
   animation-name: wobble;
   animation-duration: 2s;
-}
-
-@keyframes loading {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 99%;
-  }
+  font-family: "Bebas Neue", cursive;
+  font-size: 50px;
+  margin: auto;
+  filter: drop-shadow(0px 10px 3px #55555a);
 }
 
 @keyframes wobble {
@@ -264,27 +319,26 @@ h1 {
   }
 }
 
-#percentage {
-  margin: auto;
-  margin-top: 0px;
-  height: 10px;
-}
-
 h1 {
   margin: 0;
 }
 
+#currentRoundScore {
+  padding-left: 10px;
+}
+
 #nextbutton {
-  width: 200px;
-  height: 65px;
+  width: 180px;
+  height: 55px;
   margin: auto;
-  background-color: rgb(0, 0, 0);
-  color: rgb(106, 255, 7);
+  background-color: rgb(0, 255, 0);
+  color: rgb(255, 255, 255);
   font-size: xx-large;
   border: 1px solid white;
   border-radius: 10px;
   transition: 0.3s ease-in;
   font-family: "Bebas Neue", cursive;
+  margin-top: 0;
 }
 
 #nextbutton :hover {
@@ -295,8 +349,8 @@ h1 {
 }
 
 #news {
-  width: 250px;
-  height: 100px;
+  width: 180px;
+  height: 70px;
   margin: auto;
   background-color: rgb(0, 0, 0);
   color: white;
@@ -304,11 +358,100 @@ h1 {
   border: 1px solid white;
   border-radius: 10px;
   transition: 0.3s ease-in;
+  font-family: "Bebas Neue", cursive;
+  margin-top: 0;
+  filter: drop-shadow(5px 5px 3px #55555a);
+  border: none;
 }
 
 #news:hover {
-  border: 3px solid black;
-  background-color: white;
-  color: black;
+  border: 3px solid rgb(255, 255, 255);
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
   transition: 0.3s ease-in;
+}
+
+.scorebar {
+  width: 90%;
+  height: 30px;
+  background: rgb(255, 0, 0);
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  border: none;
+  margin-top: 0;
+}
+
+#realscorebar {
+  width: 30%;
+  height: 100%;
+  margin: auto;
+  border-radius: 10px;
+  margin-left: 0;
+}
+
+#loadingscorebar {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background: rgb(0, 255, 0);
+  border-radius: 10px;
+  margin-left: 0;
+  animation: loading 2s;
+  animation-fill-mode: forwards;
+  font-size: 10px;
+}
+
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+#loading-break {
+  position: absolute;
+  z-index: 10000000;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: none;
+  background: rgb(0, 0, 0);
+}
+
+#breakimagg {
+  width: 300px;
+  margin: auto;
+}
+
+.resultsPageCont {
+  width: 100%;
+  height: fit-content;
+  min-height: 400px;
+  max-width: 99vw;
+  display: flex;
+  margin: auto;
+}
+
+.resultsPageContOne {
+  width: 400px;
+  height: fit-content;
+  min-height: 400px;
+  max-width: 99vw;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border-radius: 10px;
+}
+
+#resultsPage {
+  display: none;
+}
+
+#menu {
+  display: flex;
 }
