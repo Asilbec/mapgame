@@ -170,11 +170,13 @@ h1 {
 
 .howtoplay {
   width: 95%;
-  height: 300px;
+  height: fit-content;
+  min-height: 100px;
   margin: auto;
   display: flex;
   flex-direction: column;
   font-family: "Bebas Neue", cursive;
+  margin-top: 20px;
 }
 
 #howotoplay {
@@ -472,6 +474,7 @@ h1 {
   background-color: rgb(255, 255, 255);
   display: flex;
   font-family: "Bebas Neue", cursive;
+  margin-top: 20px;
 }
 
 #useless {
@@ -483,4 +486,19 @@ h1 {
   text-align: left;
   font-family: "Bebas Neue", cursive;
   font-size: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .roundcounter {
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 10000;
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto;
+  }
 }

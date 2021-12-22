@@ -353,7 +353,10 @@ function App() {
                   Points are rewarded based on a 10,000 km radius
                 </li>
                 <li>
-                  Upcoming changes: (hint system) - credit to Ethan Snyder
+                  <mark>Recent Changes: Fixed the map going back to small size - credit to Kaitlin Teyssier</mark>
+                </li>
+                <li>
+                  <mark>Upcoming changes: (hint system) - credit to Ethan Snyder</mark>
                 </li>
               </ul>
             </p>
