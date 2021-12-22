@@ -524,4 +524,9 @@ h1 {
     height: 30px;
     font-size: 15px;
   }
+
+  #nice {
+    width: 0vw;
+    height: 0vw;
+  }
 }

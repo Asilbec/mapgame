@@ -27,7 +27,8 @@ function Map(props) {
     gestureHandling: 'greedy',
     draggableCursor: targetcursor,
     draggingCursor: targetcursor,
-    defaultCursor: targetcursor
+    defaultCursor: targetcursor,
+    controlSize: 24,
   }
   const path = [
     { lat: props.lat, lng: props.lng },
@@ -78,7 +79,7 @@ function streetview(props) {
     showRoadLabels: false,
     motionTracking: false,
     panControl: true,
-    linksControl: true
+    linksControl: true,
   };
 
   return (
@@ -115,13 +116,16 @@ function App() {
     lat: -8.77790, lng: 5.94421
   })
 
+
   function enlarge() {
     if (shown === true) {
-      document.getElementById('nice').style.width = '20vw'
-      document.getElementById('nice').style.height = '20vw'
+      document.getElementById('nice').style.width = '20px'
+      document.getElementById('nice').style.height = '20px'
       notShown(false)
+
     }
     else {
+      document.getElementById('nice').style.display = 'grid'
       document.getElementById('nice').style.width = '100vw'
       document.getElementById('nice').style.height = '70vh'
       notShown(true)
@@ -213,8 +217,15 @@ function App() {
   function killtimer() {
     document.getElementById('loading-break').style.display = 'flex'
     setTimeout(() => {
-      document.getElementById('nice').style.width = '20vw'
-      document.getElementById('nice').style.height = '20vw'
+
+      if (window.innerWidth < 600) {
+        document.getElementById('nice').style.width = '0vw'
+        document.getElementById('nice').style.height = '0vw'
+      } else {
+        document.getElementById('nice').style.width = '20vw'
+        document.getElementById('nice').style.height = '20vw'
+        console.log('nice')
+      }
       document.getElementById('submitButton').style.display = 'inline'
       document.getElementById('infoshown').style.display = 'none'
       document.getElementById('nice').style.padding = '0px'
@@ -226,14 +237,14 @@ function App() {
         setTimeout(() => {
           document.getElementById('loading-break').style.display = 'none'
 
-        }, 2000)
+        }, 2700)
       }
       else {
         newview()
         setTimeout(() => {
           document.getElementById('loading-break').style.display = 'none'
 
-        }, 2500)
+        }, 2700)
       }
     }, 10);
   }
