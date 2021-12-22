@@ -90,7 +90,7 @@ function streetview(props) {
         enableCloseButton={false}
         addressControl={true}
         visible={true}
-        onLoad={(e) => { }}
+        onLoad={(e) => { console.log('nice') }}
         options={mapOptions
         }
       />
@@ -115,6 +115,8 @@ function App() {
   })
 
   function newArea() {
+    document.getElementById('loading-break').style.display = 'none'
+
     const lat1 = document.getElementById('lat').innerHTML
     const lng1 = document.getElementById('lng').innerHTML
     const lat2 = points.lat
@@ -215,7 +217,7 @@ function App() {
         setTimeout(() => {
           document.getElementById('loading-break').style.display = 'none'
 
-        }, 2000)
+        }, 2500)
       }
     }, 10);
   }
@@ -234,6 +236,20 @@ function App() {
   }
 
   function newview() {
+    randomStreetView.setHighCpuUsage()
+
+    if (document.getElementById('selectoptions').value === "1") {
+      randomStreetView.setParameters({
+        google: null,
+        polygon: [[[55.775719492458784, 178.79332565783884], [47.74675218156385, -39.75047981907571], [13.47831833717081, -68.63839027176307], [24.036582764988257, -129.08819556550753]]]
+      })
+    }
+    else {
+      randomStreetView.setParameters({
+        google: null
+      })
+    }
+
 
     randomStreetView.getRandomLocations(1).then(function (response) {
       newPoints({
@@ -245,8 +261,10 @@ function App() {
   }
 
   function finishgame() {
-    document.getElementById("games").style.display = 'none'
+
     document.getElementById("resultsPage").style.display = 'flex'
+    document.getElementById("games").style.display = 'none'
+
   }
 
 
@@ -307,6 +325,13 @@ function App() {
       <div id='menu'>
         <div className='menucontent'>
           <button id='begin' className='text-white' onClick={() => beginGame()}>Start</button>
+          <div className='inputCountry'>
+            <label id='useless'>Select:</label>
+            <select id='selectoptions'>
+              <option selected value="1">North America</option>
+              <option value="2">The World</option>
+            </select>
+          </div>
 
           <div className='howtoplay'>
             <button id='howotoplay' onClick={() => showDirections()}>Directions</button>

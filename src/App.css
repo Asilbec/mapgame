@@ -212,8 +212,8 @@ h1 {
   width: 230px;
   height: 90px;
   margin: auto;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  background-color: rgb(3, 221, 21);
+  color: rgb(255, 255, 255);
   font-size: xx-large;
   border: none;
   transition: 0.3s ease-in;
@@ -221,13 +221,12 @@ h1 {
   font-size: 40px;
   border-radius: 10px;
   filter: drop-shadow(5px 5px 3px #55555a);
-  border: 2px solid black;
+  border: 2px solid rgb(255, 255, 255);
 }
 
 #begin:hover {
-  border: 1px solid rgb(255, 255, 255);
-  background-color: rgb(3, 221, 21);
-  color: rgb(255, 255, 255);
+  width: 240px;
+  height: 100px;
   transition: 0.3s ease-in;
 }
 
@@ -397,7 +396,7 @@ h1 {
   background: rgb(0, 255, 0);
   border-radius: 10px;
   margin-left: 0;
-  animation: loading 2s;
+  animation: loading 4s;
   animation-fill-mode: forwards;
   font-size: 10px;
 }
@@ -454,4 +453,34 @@ h1 {
 
 #menu {
   display: flex;
+}
+
+#selectoptions {
+  width: 50%;
+  height: 50px;
+  margin: auto;
+  margin-top: 20px;
+  margin-left: 0;
+  font-family: "Bebas Neue", cursive;
+  font-size: 25px;
+}
+
+.inputCountry {
+  width: 90%;
+  height: fit-content;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  font-family: "Bebas Neue", cursive;
+}
+
+#useless {
+  width: fit-content;
+  margin: auto;
+  margin-right: 5px;
+  height: 30px;
+  line-height: 50px;
+  text-align: left;
+  font-family: "Bebas Neue", cursive;
+  font-size: 25px;
 }
