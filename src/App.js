@@ -91,7 +91,7 @@ function streetview(props) {
         position={{ lat: props.lat, lng: props.lng }}
         enableCloseButton={false}
         addressControl={true}
-        visible={true}
+        visible={props.state}
         onLoad={(e) => { console.log('nice') }}
         options={mapOptions
         }
@@ -109,6 +109,7 @@ const StreetView = withScriptjs(withGoogleMap(streetview));
 
 
 function App() {
+  const [showStreet, newShown] = useState(true)
   const [maxPoints, newMax] = useState(5000)
   const [shown, notShown] = useState(false)
   const [round, newRound] = useState(0)
@@ -158,21 +159,18 @@ function App() {
     document.getElementById('submitButton').style.display = 'none'
     document.getElementById('infoshown').style.display = 'grid'
     newMarkerState(true)
-    document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2) + ' km'
+    document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(3) + ' km'
     document.getElementById('currentRoundScore').innerText = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) + '/' + paraFar
     document.getElementById('realscorebar').style.width = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) / (paraFar / 100) + '%'
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
     newmarkerStatus(false)
   }
-
-
   function changeWidth() {
     if (markerState === false) {
       document.getElementById('nice').style.width = '40vw'
       document.getElementById('nice').style.height = '40vw'
     }
   }
-
   function changeBack() {
     if (markerState === false) {
       document.getElementById('nice').style.width = '20vw'
@@ -220,6 +218,7 @@ function App() {
     document.getElementById('games').style.display = 'flex'
     document.getElementById('menu').style.display = 'none'
     document.getElementById('resultsPage').style.display = 'none'
+    moveback()
   }
 
   function returntoScreen() {
@@ -322,6 +321,11 @@ function App() {
     document.getElementById("games").style.display = 'none'
   }
 
+  function moveback() {
+    newShown(false)
+    setTimeout(() => { newShown(true) }, 300)
+  }
+
   // Converts numeric degrees to radians
   function toRad(Value) {
     return Value * Math.PI / 180;
@@ -336,8 +340,10 @@ function App() {
         <div className='mapFunction'>
           <div id='refresher' className="map">
             <StreetView
+              id='flsajd'
               lat={points.lat}
               lng={points.lng}
+              state={showStreet}
               googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCea_aNWrtFKwa63zn0e3xpkpBTe2QYAFU"}
               loadingElement={<div className='loadingStuff' />}
               containerElement={<div className='loadingStuff' />}
