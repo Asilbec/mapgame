@@ -85,8 +85,7 @@ function streetview(props) {
 
   return (
     <GoogleMap
-      defaultCenter={{ lat: -8.77790, lng: 5.94421 }}
-
+      defaultCenter={{ lat: props.lat, lng: props.lng }}
     >
       <StreetViewPanorama
         position={{ lat: props.lat, lng: props.lng }}
@@ -97,9 +96,6 @@ function streetview(props) {
         options={mapOptions
         }
         linksControl={true}
-        fullscreenControlOptions={{
-          position: window.google.maps.ControlPosition.BOTTOM_CENTER,
-        }}
       />
     </GoogleMap>
   )
@@ -113,6 +109,7 @@ const StreetView = withScriptjs(withGoogleMap(streetview));
 
 
 function App() {
+  const [maxPoints, newMax] = useState(5000)
   const [shown, notShown] = useState(false)
   const [round, newRound] = useState(0)
   const [roundpoints, addtopoints] = useState(0)
@@ -141,7 +138,15 @@ function App() {
 
 
   function newArea() {
+    var paraFar = 10
     document.getElementById('loading-break').style.display = 'none'
+    if (document.getElementById('selectoptions').value === "1") {
+      paraFar = 5000
+    }
+    else {
+      paraFar = 10000
+      newMax(10000)
+    }
 
     const lat1 = document.getElementById('lat').innerHTML
     const lng1 = document.getElementById('lng').innerHTML
@@ -154,9 +159,8 @@ function App() {
     document.getElementById('infoshown').style.display = 'grid'
     newMarkerState(true)
     document.getElementById('totalDifference').innerText = 'Total difference is ' + (calcCrow(lat1, lng1, lat2, lng2)).toFixed(2) + ' km'
-    document.getElementById('currentRoundScore').innerText = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) + '/10,000'
-    document.getElementById('realscorebar').style.width = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) / 100 + '%'
-
+    document.getElementById('currentRoundScore').innerText = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) + '/' + paraFar
+    document.getElementById('realscorebar').style.width = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) / (paraFar / 100) + '%'
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
     newmarkerStatus(false)
   }
@@ -176,13 +180,32 @@ function App() {
     }
   }
 
-  function distancetoScore(distance) {
-    if (distance > 10000) {
-      return 0
+  function distancetoScore(x) {
+
+    if (document.getElementById('selectoptions').value === "1") {
+      if (x > 5000) {
+        return 0
+      }
+      else {
+        if (x < 0.05) {
+          return 5000
+        }
+        else {
+          return (5000 - (70.710679774997 * Math.sqrt(x)))
+        }
+      }
     }
     else {
-      return 10000 - distance
+      if (x > 10000) {
+        return 0
+      }
+      else {
+        return (10000 - (100 * Math.sqrt(x)))
+      }
     }
+
+
+
   }
 
   function updategame() {
@@ -295,12 +318,9 @@ function App() {
   }
 
   function finishgame() {
-
     document.getElementById("resultsPage").style.display = 'flex'
     document.getElementById("games").style.display = 'none'
-
   }
-
 
   // Converts numeric degrees to radians
   function toRad(Value) {
@@ -401,12 +421,12 @@ function App() {
       <div id='resultsPage'>
         <div className='resultsPageCont'>
           <div className='resultsPageContOne'>
-            <h1 id='total'>{roundpoints.toFixed(2)}/{round * 10000}</h1>
+            <h1 id='total'>{roundpoints.toFixed(2)}/{round * maxPoints}</h1>
 
             <div className='bar'>
-              <div className='outerline' style={{ width: (roundpoints / (round * 10000) * 100) + '%' }}>
+              <div className='outerline' style={{ width: (roundpoints / (round * maxPoints) * 100) + '%' }}>
                 <div id='loadinggif'>
-                  <h1 id='percentage'>{(roundpoints / (round * 10000) * 100).toFixed(1)}%</h1>
+                  <h1 id='percentage'>{(roundpoints / (round * maxPoints) * 100).toFixed(1)}%</h1>
 
                 </div>
 
