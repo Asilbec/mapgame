@@ -17,6 +17,8 @@ import gif from './pictures/tumblr_335c00f00577e421ec9216a31ce2bcde_d2833a17_128
 
 
 
+
+
 function Map(props) {
   const [marker, newMarker] = useState({ lat: 0, lng: 0 })
   const OPTIONS = {
@@ -79,12 +81,12 @@ function streetview(props) {
     showRoadLabels: false,
     motionTracking: false,
     panControl: true,
-    linksControl: true,
   };
 
   return (
     <GoogleMap
       defaultCenter={{ lat: -8.77790, lng: 5.94421 }}
+
     >
       <StreetViewPanorama
         position={{ lat: props.lat, lng: props.lng }}
@@ -94,6 +96,10 @@ function streetview(props) {
         onLoad={(e) => { console.log('nice') }}
         options={mapOptions
         }
+        linksControl={true}
+        fullscreenControlOptions={{
+          position: window.google.maps.ControlPosition.BOTTOM_CENTER,
+        }}
       />
     </GoogleMap>
   )
@@ -179,17 +185,18 @@ function App() {
     }
   }
 
-
-  function beginGame() {
+  function updategame() {
     newRound(0)
     addtopoints(0)
-    newview()
-    setTimeout(() => {
-      document.getElementById('games').style.display = 'flex'
-      document.getElementById('menu').style.display = 'none'
-      document.getElementById('resultsPage').style.display = 'none'
+  }
 
-    }, 1000);
+
+  function beginGame() {
+    updategame()
+    newview()
+    document.getElementById('games').style.display = 'flex'
+    document.getElementById('menu').style.display = 'none'
+    document.getElementById('resultsPage').style.display = 'none'
   }
 
   function returntoScreen() {
