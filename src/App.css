@@ -141,7 +141,8 @@ h1 {
   grid-template-columns: auto auto;
 }
 
-.roundcounter p {
+.roundcounter p,
+.roundcounter button {
   width: 150px;
   height: 50px;
   margin: 0;
@@ -156,8 +157,10 @@ h1 {
   font-family: "Bebas Neue", cursive;
 }
 
-.roundcounter :nth-child(1) {
-  border-bottom-left-radius: 5px;
+.roundcounter button {
+  width: 154px;
+  font-family: "Bebas Neue", cursive;
+  line-height: 40px;
 }
 
 #menu {

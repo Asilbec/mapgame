@@ -8,6 +8,7 @@ import {
   Marker,
   StreetViewPanorama,
   Polyline,
+  Circle
 } from "react-google-maps";
 
 import ping from './pictures/pushpin-png-13.png'
@@ -20,7 +21,7 @@ import gif from './pictures/tumblr_335c00f00577e421ec9216a31ce2bcde_d2833a17_128
 
 
 function Map(props) {
-  const [marker, newMarker] = useState({ lat: 0, lng: 0 })
+  const [marker, newMarker] = useState({ lat: 40.30732345257759, lng: -85.37336461293549 })
   const OPTIONS = {
     minZoom: 2,
     maxZoom: 18,
@@ -57,24 +58,35 @@ function Map(props) {
     new window.google.maps.Point(16, 16), /* anchor is bottom center of the scaled image */
     new window.google.maps.Size(32, 32)
   );
+
+  function randomizefirstclue(pointA, distance, bearing, multi) {
+    var pointB = window.google.maps.geometry.spherical.computeOffset(pointA, distance * multi, bearing);
+    return pointB
+  }
   return (
     <GoogleMap
       defaultZoom={4}
       options={OPTIONS}
-      defaultCenter={{ lat: 45.4211, lng: -75.6903 }}
+      defaultCenter={{ lat: 40.30732345257759, lng: -85.37336461293549 }}
       onClick={(event) => {
         if (props.newMarkerStuff === true) {
           document.getElementById('lat').innerHTML = event.latLng.lat()
           document.getElementById('lng').innerHTML = event.latLng.lng()
           newMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() })
         }
-      }}><Marker position={marker} icon={iconMarker}></Marker>
-      <Marker icon={iconMarker2} visible={props.state}
-        position={{ lat: props.lat, lng: props.lng }} />
-      <Polyline options={option} visible={props.state} path={path}>
-      </Polyline>
+      }}>
+      <Marker position={marker} animation={window.google.maps.Animation.DROP} icon={iconMarker}></Marker>
+      <Marker icon={iconMarker2} animation={window.google.maps.Animation.DROP} visible={props.state} position={{ lat: props.lat, lng: props.lng }} />
+      <Polyline options={option} visible={props.state} path={path}></Polyline>
+      <Circle options={{
+        clickable: false,
+        zIndex: 1,
+        strokeColor: 'red'
+      }} radius={props.radius} visible={props.firstclue} center={{ lat: randomizefirstclue({ lat: props.lat, lng: props.lng }, props.farway, props.degree, props.multi).lat(), lng: randomizefirstclue({ lat: props.lat, lng: props.lng }, props.farway, props.degree, props.multi).lng() }}></Circle>
     </GoogleMap>);
 }
+
+
 function streetview(props) {
   const mapOptions = {
     enableCloseButton: false,
@@ -106,8 +118,11 @@ const StreetView = withScriptjs(withGoogleMap(streetview));
 
 
 function App() {
-
   // UseStates
+  const [hints, newhints] = useState(3)
+  const [showhint, changehint] = useState(false)
+  const [farway, newfarway] = useState(1000)
+  const [degreez, newdegreez] = useState(1000)
   const [showStreet, newShown] = useState(true)
   const [maxPoints, newMax] = useState(5000)
   const [shown, notShown] = useState(false)
@@ -125,6 +140,8 @@ function App() {
   function beginGame() {
     updategame()
     newview()
+    changehint(false)
+    newhints(3)
     document.getElementById('games').style.display = 'flex'
     document.getElementById('menu').style.display = 'none'
     document.getElementById('resultsPage').style.display = 'none'
@@ -189,6 +206,7 @@ function App() {
 
 
   //cal functions
+
   function toRad(Value) {
     return Value * Math.PI / 180;
   }
@@ -268,6 +286,7 @@ function App() {
     document.getElementById('loading-break').style.display = 'none'
     if (document.getElementById('selectoptions').value === "1") {
       paraFar = 5000
+      newMax(5000)
     }
     else {
       paraFar = 10000
@@ -288,6 +307,7 @@ function App() {
     document.getElementById('realscorebar').style.width = (distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2))).toFixed(1) / (paraFar / 100) + '%'
     addtopoints(roundpoints + distancetoScore((calcCrow(lat1, lng1, lat2, lng2)).toFixed(2)))
     newmarkerStatus(false)
+    changehint(false)
   }
 
   function updategame() {
@@ -295,9 +315,19 @@ function App() {
     addtopoints(0)
   }
 
+  function showhints() {
+    if (showhint === false) {
+      if (hints > 0) {
+        changehint(true)
+        newhints(hints - 1)
+      }
+    }
+  }
+
   function newview() {
     randomStreetView.setHighCpuUsage()
-
+    newfarway(Math.floor(Math.random() * 1000))
+    newdegreez(Math.floor(Math.random() * 360))
     if (document.getElementById('selectoptions').value === "1") {
       randomStreetView.setParameters({
         google: null,
@@ -329,8 +359,10 @@ function App() {
     <div className='App'>
       <div className='game' id='games'>
         <div className='roundcounter'>
+          <button onClick={() => showhints()}>Show Hints</button>
           <p>Round : {round}/5</p>
           <p>score : {roundpoints.toFixed(2)}</p>
+          <p>Hints : {hints}/3</p>
         </div>
         <div className='mapFunction'>
           <div id='refresher' className="map">
@@ -357,6 +389,11 @@ function App() {
             lat={points.lat}
             lng={points.lng}
             state={markerState}
+            firstclue={showhint}
+            farway={farway}
+            degree={degreez}
+            radius={500000}
+            multi={500}
           />
           <div id='info'>
             <h1 id='lat'>?</h1>
@@ -422,12 +459,12 @@ function App() {
       <div id='resultsPage'>
         <div className='resultsPageCont'>
           <div className='resultsPageContOne'>
-            <h1 id='total'>{roundpoints.toFixed(2)}/{round * maxPoints}</h1>
+            <h1 id='total'>{(roundpoints - ((3 - hints) * 2000)).toFixed(2)}/{round * maxPoints}</h1>
 
             <div className='bar'>
-              <div className='outerline' style={{ width: (roundpoints / (round * maxPoints) * 100) + '%' }}>
+              <div className='outerline' style={{ width: ((roundpoints - ((3 - hints) * 2000)).toFixed(2) / (round * maxPoints) * 100) + '%' }}>
                 <div id='loadinggif'>
-                  <h1 id='percentage'>{(roundpoints / (round * maxPoints) * 100).toFixed(1)}%</h1>
+                  <h1 id='percentage'>{((roundpoints - ((3 - hints) * 2000)).toFixed(2) / (round * maxPoints) * 100).toFixed(1)}%</h1>
 
                 </div>
 
