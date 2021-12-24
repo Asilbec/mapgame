@@ -81,7 +81,10 @@ function Map(props) {
       <Circle options={{
         clickable: false,
         zIndex: 1,
-        strokeColor: 'red'
+        strokeColor: 'red',
+        strokeWeight: 7,
+        strokeOpacity: 100,
+        fillColor: "rgba(100, 100, 100, 0.5)"
       }} radius={props.radius} visible={props.firstclue} center={{ lat: randomizefirstclue({ lat: props.lat, lng: props.lng }, props.farway, props.degree, props.multi).lat(), lng: randomizefirstclue({ lat: props.lat, lng: props.lng }, props.farway, props.degree, props.multi).lng() }}></Circle>
     </GoogleMap>);
 }
@@ -454,6 +457,7 @@ function App() {
               </ul>
             </p>
           </div>
+
         </div>
       </div>
       <div id='resultsPage'>

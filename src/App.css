@@ -6,6 +6,7 @@ html {
   height: fit-content;
   min-height: calc(100vh - calc(100vh - 100%));
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .map {
@@ -23,6 +24,7 @@ html {
   height: calc(100vh - calc(100vh - 100%));
   display: grid;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .mapFunction {
@@ -105,7 +107,8 @@ h1 {
   width: 100%;
   max-width: 600px;
   height: 30vh;
-  background-color: rgb(255, 255, 255);
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+  background-position: center;
   position: absolute;
   bottom: 0;
   display: none;
@@ -119,7 +122,8 @@ h1 {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   font-family: "Bebas Neue", cursive;
-  color: black;
+  color: rgb(255, 255, 255);
+  font-weight: lighter;
 }
 
 #infoshown h1 {
@@ -163,7 +167,8 @@ h1 {
 
 #menu {
   width: 100vw;
-  min-height: 100vh;
+  height: fit-content;
+  min-height: 110vh;
   display: none;
   background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
   background-position: center;
@@ -177,7 +182,6 @@ h1 {
   flex-direction: column;
   border-radius: 10px;
   padding-top: 20px;
-  filter: drop-shadow(2px 2px 1px #000000);
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -207,7 +211,7 @@ h1 {
   margin-top: 30px;
   font-family: "Bebas Neue", cursive;
   font-size: 20px;
-  background: yellow;
+  background: rgb(240, 236, 4);
 }
 
 #howotoplay:hover {
@@ -253,6 +257,7 @@ h1 {
   margin: auto;
   font-family: "Bebas Neue", cursive;
   font-size: 20px;
+  color: black;
 }
 
 #resultsPage {
@@ -260,8 +265,8 @@ h1 {
   height: 100vh;
   display: flex;
   background-color: black;
-  background-image: url("./pictures/34-343222_4k-wallpaper-reddit-best-cool-wallpaper-hd-download.jpg");
-  background-size: cover;
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+  background-position: center;
 }
 
 .totalScore {
@@ -309,7 +314,6 @@ h1 {
   font-family: "Bebas Neue", cursive;
   font-size: 50px;
   margin: auto;
-  filter: drop-shadow(0px 10px 3px #55555a);
 }
 
 @keyframes wobble {
@@ -342,6 +346,8 @@ h1 {
 
 #currentRoundScore {
   padding-left: 10px;
+  line-height: 30px;
+  color: black;
 }
 
 #nextbutton {
@@ -377,26 +383,26 @@ h1 {
   transition: 0.3s ease-in;
   font-family: "Bebas Neue", cursive;
   margin-top: 0;
-  filter: drop-shadow(5px 5px 3px #55555a);
   border: none;
 }
 
 #news:hover {
   border: 3px solid rgb(255, 255, 255);
   background-color: rgb(255, 0, 0);
-  color: rgb(255, 255, 255);
+  color: rgb(238, 18, 18);
   transition: 0.3s ease-in;
 }
 
 .scorebar {
   width: 90%;
   height: 30px;
-  background: rgb(255, 0, 0);
+  background: rgb(248, 0, 0);
   margin: auto;
   border-radius: 10px;
   display: flex;
   border: none;
   margin-top: 0;
+  border: 1px solid white;
 }
 
 #realscorebar {
@@ -405,6 +411,7 @@ h1 {
   margin: auto;
   border-radius: 10px;
   margin-left: 0;
+  color: black;
 }
 
 #loadingscorebar {
@@ -437,6 +444,7 @@ h1 {
   top: 0;
   display: none;
   background: rgb(0, 0, 0);
+  overflow-y: hidden;
 }
 
 #breakimagg {
@@ -458,11 +466,11 @@ h1 {
   height: fit-content;
   min-height: 400px;
   max-width: 99vw;
-  background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   margin: auto;
   border-radius: 10px;
+  color: white;
 }
 
 #resultsPage {
@@ -486,8 +494,12 @@ h1 {
   background-color: rgba(255, 255, 255, 0);
   border-radius: 50px;
   padding-left: 10px;
-  border: 1px solid white;
   color: white;
+  border-top: none;
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  outline: none;
 }
 
 #selectoptions option {
