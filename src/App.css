@@ -1,12 +1,11 @@
 html {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: overlay;
 }
 .App {
   width: 100%;
-  height: 100vh;
+  height: fit-content;
+  min-height: calc(100vh - calc(100vh - 100%));
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .map {
@@ -21,10 +20,9 @@ html {
 
 .game {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - calc(100vh - 100%));
   display: grid;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .mapFunction {
@@ -165,10 +163,9 @@ h1 {
 
 #menu {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: none;
-  background-image: url("./pictures/34-343222_4k-wallpaper-reddit-best-cool-wallpaper-hd-download.jpg");
-  background-size: cover;
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
   background-position: center;
 }
 
@@ -176,16 +173,18 @@ h1 {
   width: 400px;
   height: fit-content;
   max-width: 95vw;
-  background: rgb(255, 255, 255);
-  margin: auto;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  overflow-y: auto;
   padding-top: 20px;
-  filter: drop-shadow(5px 5px 3px #55555a);
+  filter: drop-shadow(2px 2px 1px #000000);
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
 }
-
 .howtoplay {
   width: 95%;
   height: fit-content;
@@ -195,6 +194,8 @@ h1 {
   flex-direction: column;
   font-family: "Bebas Neue", cursive;
   margin-top: 20px;
+  color: white;
+  font-size: 20px;
 }
 
 #howotoplay {
@@ -204,8 +205,6 @@ h1 {
   border: none;
   margin: auto;
   margin-top: 30px;
-  overflow: hidden;
-  filter: drop-shadow(5px 5px 1px #55555a);
   font-family: "Bebas Neue", cursive;
   font-size: 20px;
   background: yellow;
@@ -214,7 +213,6 @@ h1 {
 #howotoplay:hover {
   width: 155px;
   height: 55px;
-  filter: drop-shadow(5px 5px 3px #55555a);
 }
 
 #playintro {
@@ -232,7 +230,7 @@ h1 {
   width: 230px;
   height: 90px;
   margin: auto;
-  background-color: rgb(3, 221, 21);
+  background-color: rgba(3, 221, 21, 0);
   color: rgb(255, 255, 255);
   font-size: xx-large;
   border: none;
@@ -240,14 +238,15 @@ h1 {
   font-family: "Bebas Neue", cursive;
   font-size: 40px;
   border-radius: 10px;
-  filter: drop-shadow(5px 5px 3px #55555a);
   border: 2px solid rgb(255, 255, 255);
+  border-radius: 50px;
 }
 
 #begin:hover {
   width: 240px;
   height: 100px;
   transition: 0.3s ease-in;
+  background-color: rgb(8, 255, 28);
 }
 
 #percentage {
@@ -283,7 +282,6 @@ h1 {
   margin: auto;
   margin-top: 0px;
   border-radius: 10px;
-  filter: drop-shadow(5px 5px 3px #55555a);
 }
 
 .outerline {
@@ -473,6 +471,8 @@ h1 {
 
 #menu {
   display: flex;
+  height: fit-content;
+  min-height: 150vh;
 }
 
 #selectoptions {
@@ -483,16 +483,26 @@ h1 {
   margin-left: 0;
   font-family: "Bebas Neue", cursive;
   font-size: 25px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 50px;
+  padding-left: 10px;
+  border: 1px solid white;
+  color: white;
+}
+
+#selectoptions option {
+  background-color: rgba(255, 0, 0, 0);
+  color: black;
 }
 
 .inputCountry {
   width: 90%;
   height: fit-content;
   margin: auto;
-  background-color: rgb(255, 255, 255);
   display: flex;
   font-family: "Bebas Neue", cursive;
   margin-top: 20px;
+  color: white;
 }
 
 #useless {
@@ -531,4 +541,22 @@ h1 {
     width: 0vw;
     height: 0vw;
   }
+  .menucontent {
+    top: 20%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(216, 216, 216);
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
 }

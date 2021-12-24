@@ -459,7 +459,7 @@ function App() {
       <div id='resultsPage'>
         <div className='resultsPageCont'>
           <div className='resultsPageContOne'>
-            <h1 id='total'>{(roundpoints - ((3 - hints) * 2000)).toFixed(2)}/{round * maxPoints}</h1>
+            <h1 id='total'>{(roundpoints - ((3 - hints) * 1500)).toFixed(2)}/{round * maxPoints}</h1>
 
             <div className='bar'>
               <div className='outerline' style={{ width: ((roundpoints - ((3 - hints) * 2000)).toFixed(2) / (round * maxPoints) * 100) + '%' }}>
