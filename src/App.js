@@ -173,6 +173,7 @@ function App() {
   function finishgame() {
     document.getElementById("resultsPage").style.display = 'flex'
     document.getElementById("games").style.display = 'none'
+    localStorage.setItem('prevScore', roundpoints.toFixed(2))
   }
 
   //menu functions
@@ -428,7 +429,7 @@ function App() {
               <option value="2">The World</option>
             </select>
           </div>
-
+          <p id='prevhigh'>Last : {(localStorage.getItem('prevScore'))}</p>
           <div className='howtoplay'>
             <button id='howotoplay' onClick={() => showDirections()}>Directions</button>
             <p id='playintro'>

@@ -572,3 +572,10 @@ h1 {
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0);
 }
+
+#prevhigh {
+  text-align: center;
+  font-family: "Bebas Neue", cursive;
+  font-size: 25px;
+  color: white;
+}
